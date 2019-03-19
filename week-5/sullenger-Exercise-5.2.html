@@ -1,0 +1,49 @@
+<!--
+============================================
+; Title: sullenger-Exercise-5.2.html
+; Author: Jason Sullenger
+; Date: 18 March 2019
+; Description: tests jQuery proxy fucntion
+;===========================================
+ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Exercise 5.2 - The Proxy Pattern</title>
+  <!-- jquery Reference Library -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="sullenger-Exercise-5.2-Style.css">
+</head>
+<body>
+
+  <h2>Proxy Exercise 5.2</h2>
+  <button class="btn-lg btn btn-dark"id="buttonMusicalArtist">Run Test</button>
+  <br/>
+  <span id="proxyMusicalArtist"></span>
+
+  <script>
+    $(function() {
+      // Musical artist object defined
+      var musicalArtist = {
+        name: "Marshall 'Eminem' Mathers III",
+        age: 46,
+        latestAlbum: "Kamikaze (2018)",
+        topSong: "Lose Yourself - From '8 Mile' Soundtrack",
+        // function appending information from this object to the page
+        display: function(){
+          $("#proxyMusicalArtist").html("");
+          $("#proxyMusicalArtist").append("<br/>Artist: " + this.name + " age: " + this.age +
+           "<br/>Most recent Album: " + this.latestAlbum + "<br/>Best known for: " + this.topSong)
+        }
+      }
+      // onClick calling function to append object
+      $("#buttonMusicalArtist").click($.proxy(musicalArtist, "display"));
+    });
+</script>
+</body>
+</html>

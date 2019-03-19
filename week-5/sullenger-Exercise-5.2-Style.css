@@ -1,0 +1,20 @@
+body {
+  background-color: #5596e6;
+  margin: 50px;
+}
+
+button {
+  margin: 50px;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+}
+
+h2{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font: bolder;
+  font-size: 300%;
+}
+
+span {
+  font: bolder;
+  font-size: 150%;
+}
