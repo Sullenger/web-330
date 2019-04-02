@@ -1,0 +1,80 @@
+<!--
+============================================
+; Title: sullenger-Exercise-7.2.html
+; Author: Jason Sullenger
+; Date: 1 April 2019
+; Description: Binding with an if statement to display a computed name
+;===========================================
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Exercise 7.2</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+      crossorigin="anonymous"
+    />
+
+    <!-- Knockout framework -->
+    <script src="../knockout-3.5.0.js"></script>
+  </head>
+  <body>
+    <div role="main" class="container">
+      <br />
+      <br />
+
+      <h2>Example 2</h2>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input
+          type="text"
+          data-bind="value: firstName"
+          class="form-control"
+          id="firstName"
+        />
+
+        <label for="lastName">Last Name:</label>
+        <input
+          type="text"
+          data-bind="value: lastName"
+          class="form-control"
+          id="lastName"
+        />
+      </div>
+
+      <div data-bind="if:fullName">
+        <h2>
+          <span
+            id="nameOutput"
+            class="alert-dark"
+            data-bind="text: fullName"
+          ></span>
+        </h2>
+      </div>
+    </div>
+
+    <script>
+      function NameViewModel() {
+        this.firstName = ko.observable("");
+        this.lastName = ko.observable("");
+
+        this.fullName = ko.pureComputed(function() {
+          return this.firstName() + " " + this.lastName();
+        }, this);
+      }
+
+      ko.applyBindings(new NameViewModel());
+    </script>
+  </body>
+</html>
