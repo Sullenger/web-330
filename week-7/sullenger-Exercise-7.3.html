@@ -1,0 +1,113 @@
+<!--
+============================================
+; Title: sullenger-Exercise-7.3.html
+; Author: Jason Sullenger
+; Date: 3 April 2019
+; Description: Using knockout foreach to display data in a table
+;===========================================
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Exercise 7.3</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+      crossorigin="anonymous"
+    />
+
+    <!-- JavaScript Libraries -->
+    <script src="../knockout-3.5.0.js"></script>
+  </head>
+  <body>
+    <!-- Start navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+      <a class="navbar-brand" href="#">Exercise 7.3</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- end navbar -->
+
+    <!-- start table -->
+    <div style="width:60%; margin: 50px auto">
+      <h2 style="margin-bottom: 50px; text-align:center">
+        Displaying Books using foreach binding
+      </h2>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <!-- For each binding lists array in a table -->
+        <tbody data-bind="foreach: books">
+          <tr>
+            <th scope="row" data-bind="text: id"></th>
+            <td data-bind="text: title"></td>
+            <td data-bind="text: price"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- end table -->
+
+    <!-- Start knockout view model -->
+    <script>
+      function BookViewModel() {
+        // books array defined
+        this.books = ko.observableArray([
+          { id: 1, title: "Milk and Honey", price: "$14.99" },
+          { id: 2, title: "Empty Bottles Full of Stories", price: "$17.99" },
+          { id: 3, title: "Every Word You Cannot Say", price: "$14.99" },
+          { id: 4, title: "The Sun and Her Flowers", price: "$16.99" },
+          {
+            id: 5,
+            title: "Don't Tell Me Not to Ask Why: Poetry & Prose",
+            price: "$16.99"
+          }
+        ]);
+      }
+
+      // Knockout bindings applied
+      ko.applyBindings(new BookViewModel());
+    </script>
+  </body>
+</html>
