@@ -1,0 +1,149 @@
+<!--
+============================================
+; Title: sullenger-Assignment-7.4.html
+; Author: Jason Sullenger
+; Date: 3 April 2019
+; Description: using attr and style with foreach bindings
+;===========================================
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Assignment 7.4</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+      crossorigin="anonymous"
+    />
+
+    <!-- Knockout framework -->
+    <script src="../knockout-3.5.0.js"></script>
+  </head>
+  <body>
+    <!-- Start navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Assignment 7.4</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- end navbar -->
+
+    <!-- start table -->
+
+    <div style="width:60%; margin: 50px auto">
+      <h2 style="margin-bottom: 50px; text-align:center">
+        JavaScript Tutorials
+      </h2>
+      <table class="table table-striped">
+        <thead class="table-info">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Link</th>
+          </tr>
+        </thead>
+        <!-- For each binding lists array in a table -->
+        <tbody data-bind="foreach: tutorials">
+          <tr>
+            <th scope="row" data-bind="text: id"></th>
+            <td data-bind="text: title, style: {'font-weight': '500'}"></td>
+            <td
+              data-bind="text: description, style: {'font-weight': '300'}"
+            ></td>
+            <td>
+              <a
+                data-bind="attr: {href: url}, style: {color: 'black', 'text-decoration': 'underline', 'font-weight': '500'}"
+                target="_blank"
+                >View this article</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- end table -->
+
+    <!-- start knockout view model -->
+    <script>
+      function TutorialViewModel() {
+        // tutorial array defined
+        this.tutorials = ko.observableArray([
+          {
+            id: 1,
+            title: "JavaScript Functions (w3schools)",
+            url: "https://www.w3schools.com/js/js_functions.asp",
+            description:
+              "A JavaScript function is a block of code designed to perform a particular task."
+          },
+          {
+            id: 2,
+            title: "JavaScript Array Iteration Methods (w3schools)",
+            url: "https://www.w3schools.com/js/js_array_iteration.asp",
+            description:
+              "The forEach() method calls a function (a callback function) once for each array element."
+          },
+          {
+            id: 3,
+            title: "JavaScript Random (w3schools)",
+            url: "https://www.w3schools.com/js/js_random.asp",
+            description:
+              "Math.random() returns a random number between 0 (inclusive),  and 1 (exclusive):"
+          },
+          {
+            id: 4,
+            title: "JavaScript For Loop (w3schools)",
+            url: "https://www.w3schools.com/js/js_loop_for.asp",
+            description: "Loops can execute a block of code a number of times."
+          },
+          {
+            id: 5,
+            title: "JavaScript Regular Expressions (w3schools)",
+            url: "https://www.w3schools.com/js/js_regexp.asp",
+            description:
+              "A regular expression is a sequence of characters that forms a search pattern."
+          }
+        ]);
+      }
+
+      ko.applyBindings(new TutorialViewModel());
+    </script>
+    <!-- end knockout view model -->
+  </body>
+</html>
