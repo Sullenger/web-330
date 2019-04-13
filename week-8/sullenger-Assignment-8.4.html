@@ -1,0 +1,290 @@
+<!--
+============================================
+; Title: sullenger-Assignment-8.4.html
+; Author: Professor Krasso
+; Date: 12 April 2019
+; Modified By: Jason Sullenger
+; Description: Employee records and input using CRUD data manipulation
+;===========================================
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Assignment 8.4</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+      crossorigin="anonymous"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- Knockout source -->
+    <script src="../knockout-3.5.0.js"></script>
+
+    <!-- Removing scroll arrows from number input -->
+    <style>
+      /* For Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      /* Webkit browsers like Safari and Chrome */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div role="main" class="container">
+      <h2 class="mt-3"><b>CRUD</b> Example</h2>
+      <br /><br />
+
+      <!-- ERROR ALERT START -->
+
+      <div class="row" data-bind="if: error">
+        <div class="col-sm-12">
+          <div role="alert" class="alert alert-danger">
+            <b>Warning!</b> <span data-bind="text: error()"></span>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <!-- END ALERT -->
+
+      <!-- START EMPLOYEE INPUT -->
+
+      <div class="row" style="margin-bottom: 10px;">
+        <div class="col-sm-8">
+          <div
+            class="card card-inverse"
+            style="background-color: #333; border-color:
+        #333; color: white;"
+          >
+            <div class="card-block">
+              <h3 class="card-title pt-3 pl-3">New Employee</h3>
+              <div class="card-text">
+                <div class="form-group col">
+                  <div class="row p-3">
+                    <label for="txtID" class="col-form-label">Id: </label>
+                    <div class="col-3">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="txtID"
+                        data-bind="value: idToAdd, valueUpdate:'afterkeydown'"
+                      />
+                    </div>
+                    <label for="txtEmployee" class="col-form-label"
+                      >Name:
+                    </label>
+                    <div class="col-7">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="txtEmployee"
+                        data-bind="value: nameToAdd, valueUpdate:'afterkeydown'"
+                      />
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <a href="#" class="btn btn-success" data-bind="click: add"
+                      >Add Employee</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- END EMPLOYEE INPUT -->
+
+      <!-- START EMPLOYEE LIST -->
+
+      <div class="row">
+        <div class="col-sm-8">
+          <div
+            class="card card-inverse"
+            style="background-color: #333; border-color:
+      #333; color: white;"
+          >
+            <div class="card-block p-3">
+              <h3 class="card-title">Employee List</h3>
+              <div class="card-text">
+                <table class="table table-dark table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Employee Id</th>
+                      <th>Name</th>
+                      <th>Functions</th>
+                    </tr>
+                  </thead>
+                  <tbody data-bind="foreach: Employees">
+                    <tr>
+                      <td data-bind="text: Id"></td>
+                      <td data-bind="text: Name"></td>
+                      <td>
+                        <span>
+                          <a
+                            data-bind="click: $root.edit"
+                            href="#"
+                            class="btn btn-success"
+                          >
+                            <i class="fa fa-pencil fa-lg"> </i> EDIT
+                          </a>
+                        </span>
+                        <span>
+                          <a
+                            data-bind="click: $root.remove"
+                            href="#"
+                            class="btn btn-danger"
+                          >
+                            <i class="fa fa-trash-o fa-lg"> </i> DELETE
+                          </a>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- END EMPLOYEE LIST -->
+
+        <!-- START EMPLOYEE UPDATE -->
+
+        <div data-bind="if: Employee" class="col-sm-4">
+          <div
+            class="card card-inverse"
+            style="background-color: #333; border-color:
+    #333; color: white;"
+          >
+            <div class="card-block p-3">
+              <h3 class="card-title">Employee List Names</h3>
+              <div class="card-text">
+                <div class="form-group">
+                  <label for="txtName">Name: </label>
+                  <input
+                    data-bind="value: Employee().Name"
+                    type="text"
+                    class="form-control"
+                    id="txtName"
+                  />
+                </div>
+                <div class="form-group float-right">
+                  <button
+                    data-bind="click: $root.cancel"
+                    class="btn btn-group btn-danger"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    data-bind="click: $root.update"
+                    class="btn btn-group btn-success"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- END EMPLOYEE UPDATE -->
+      </div>
+      <br />
+    </div>
+
+    <script>
+      function Employee(id, name) {
+        this.Id = id;
+        this.Name = name;
+      }
+
+      var employeeList = [
+        new Employee(1, "Ernest Hemingway"),
+        new Employee(2, "Mark Twain"),
+        new Employee(3, "Stephen King"),
+        new Employee(4, "F. Scott Fitzgerald"),
+        new Employee(5, "J.K. Rowling")
+      ];
+
+      // KNOCKOUT VIEW MODEL
+      function PayrollViewModel() {
+        var self = this;
+
+        // OBSERVABLES
+        self.error = ko.observable("");
+        self.Id = ko.observable("");
+        self.Name = ko.observable("");
+        self.idToAdd = ko.observable("");
+        self.nameToAdd = ko.observable("");
+        self.Employee = ko.observable();
+        self.Employees = ko.observableArray(employeeList);
+
+        // FUNCTIONS
+
+        // ADDS NEW EMPLOYEE WITH ID
+        self.add = function() {
+          if (self.nameToAdd() && self.idToAdd() !== "") {
+            self.error("");
+            self.Employees.push({ Id: self.idToAdd(), Name: self.nameToAdd() });
+          } else {
+            self.error("Invalid Entry");
+          }
+          self.nameToAdd("");
+          self.idToAdd("");
+        };
+
+        // OPENS EMPLOYEE UPDATE SECTION
+        self.edit = function(Employee) {
+          self.Employee(Employee);
+        };
+
+        // CLOSES EMPLOYEE UPDATE SECTION
+        self.cancel = function() {
+          self.Employee(null);
+        };
+
+        // DELETES SELECTED EMPLOYEE
+        self.remove = function(Employee) {
+          self.Employees.remove(Employee);
+        };
+
+        // UPDATES NAME OF SELECTED EMPLOYEE
+        self.update = function() {
+          var l_employee = self.Employee();
+          self.Employees.remove(self.Employee());
+          self.Employees.push(l_employee);
+        };
+
+        var Employee = {
+          Id: self.Id,
+          Name: self.Name
+        };
+      }
+      // BINDINGS APPLIED
+      ko.applyBindings(new PayrollViewModel());
+    </script>
+  </body>
+</html>
